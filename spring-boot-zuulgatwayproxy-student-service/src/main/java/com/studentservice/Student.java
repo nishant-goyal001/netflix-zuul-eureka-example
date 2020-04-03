@@ -1,25 +1,31 @@
 package com.studentservice;
 
 public class Student {
+        int id;
         String name;
-        String rollNo;
+        String age;
         String address;
         String course;
 
-        public Student(String name, String rollNo, String address, String course) {
+        public Student(int id,String name, String age, String address, String course) {
             super();
+            this.id=id;
             this.name = name;
-            this.rollNo=rollNo;
+            this.age=age;
             this.address = address;
             this.course = course;
         }
 
-        public String getName() {
-            return name;
+        public int getId() {
+            return id;
         }
 
-        public String getRollNo() {
-            return rollNo;
+        public String getName() {
+        return name;
+    }
+
+        public String getAge() {
+            return age;
         }
 
         public String getAddress() {
