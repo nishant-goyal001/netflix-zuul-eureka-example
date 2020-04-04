@@ -81,15 +81,22 @@ public class DatabaseSequence {
         DBCursor cursor = getCollection().find();
         List<Student> students = new ArrayList<Student>();
         while (cursor.hasNext()) {
-            System.out.println(cursor.next());
             Student student=new Student();
-            student.setId((int)(cursor.next().get("id")));
-            student.setName((String) cursor.next().get("Name"));
-            student.setAge((String) cursor.next().get("age"));
-            student.setAddress((String) cursor.next().get("address"));
-            student.setCourse((String) cursor.next().get("course"));
+//            int id= (int) cursor.next().get("id");
+//            Double myDouble = Double.valueOf((Double) cursor.next().get("id"));
+//            int id=Integer.valueOf(String.valueOf(myDouble));
+//            System.out.println(myDouble);
+//            Integer val = Integer.valueOf(myDouble.intValue());
+            System.out.println(cursor.curr());
+            double id= (double) cursor.next().get("id");
+            student.setId((int)id);
+            student.setName((String) cursor.curr().get("Name"));
+            String age=cursor.curr().get("age").toString();
+            student.setAge(age);
+            student.setAddress((String) cursor.curr().get("address"));
+            student.setCourse((String) cursor.curr().get("course"));
             students.add(student);
-            System.out.println("students list---"+students);
+//            System.out.println("students list---"+students);
         }
 
 
