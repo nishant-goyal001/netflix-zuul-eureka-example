@@ -32,7 +32,10 @@ public class StudentServiceApplication {
 
 	@GetMapping(value = "/getStudentDetails/id/{id}")
 	public Student getStudentDetails(@PathVariable(name = "id") int id) {
-		return new Student(id, "nishant", "24", "Delhi","Btech");
+//		return new Student(id, "nishant", "24", "Delhi","Btech");
+		System.out.println("NIshant------");
+		DatabaseSequence ds=new DatabaseSequence();
+		return ds.getStudent(id);
 	}
 
 	@GetMapping(value = "/getStudentDetails/name/{name}")

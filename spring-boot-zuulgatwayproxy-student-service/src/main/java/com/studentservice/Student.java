@@ -60,4 +60,15 @@ public class Student {
         public void setCourse(String course) {
             this.course = course;
         }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                ", address='" + address + '\'' +
+                ", course='" + course + '\'' +
+                '}';
+    }
 }

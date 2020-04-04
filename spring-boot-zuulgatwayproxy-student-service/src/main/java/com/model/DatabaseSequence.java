@@ -82,25 +82,37 @@ public class DatabaseSequence {
         List<Student> students = new ArrayList<Student>();
         while (cursor.hasNext()) {
             Student student=new Student();
-//            int id= (int) cursor.next().get("id");
-//            Double myDouble = Double.valueOf((Double) cursor.next().get("id"));
-//            int id=Integer.valueOf(String.valueOf(myDouble));
-//            System.out.println(myDouble);
-//            Integer val = Integer.valueOf(myDouble.intValue());
             System.out.println(cursor.curr());
             double id= (double) cursor.next().get("id");
             student.setId((int)id);
-            student.setName((String) cursor.curr().get("Name"));
+            student.setName((String) cursor.curr().get("name"));
             String age=cursor.curr().get("age").toString();
             student.setAge(age);
             student.setAddress((String) cursor.curr().get("address"));
             student.setCourse((String) cursor.curr().get("course"));
             students.add(student);
-//            System.out.println("students list---"+students);
         }
-
-
         return students;
+    }
+
+    public Student getStudent(int id) {
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("id", id);
+        DBCursor cursor = getCollection().find(whereQuery);
+
+        Student student=new Student();
+        while(cursor.hasNext()) {
+            //System.out.println("Next cursor-----"+cursor.next());
+            double studentId= (double) cursor.next().get("id");
+            student.setId((int)studentId);
+            student.setName((String) cursor.curr().get("name"));
+            String age=cursor.curr().get("age").toString();
+            student.setAge(age);
+            student.setAddress((String) cursor.curr().get("address"));
+            student.setCourse((String) cursor.curr().get("course"));
+        }
+        System.out.println("student-----"+student.toString());
+        return student;
     }
 
     public void createStudent() {
