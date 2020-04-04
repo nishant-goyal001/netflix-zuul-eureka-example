@@ -16,6 +16,10 @@ public class Student {
             this.course = course;
         }
 
+        public Student() {
+
+        }
+
         public int getId() {
             return id;
         }
@@ -36,4 +40,24 @@ public class Student {
             return course;
         }
 
-    }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setAge(String age) {
+            this.age = age;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public void setCourse(String course) {
+            this.course = course;
+        }
+}

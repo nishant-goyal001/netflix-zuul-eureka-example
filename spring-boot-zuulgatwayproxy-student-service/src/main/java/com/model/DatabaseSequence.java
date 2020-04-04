@@ -1,41 +1,41 @@
 package com.model;
 import java.net.UnknownHostException;
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.WriteResult;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import com.mongodb.*;
 import com.studentservice.Student;
 
 public class DatabaseSequence {
 
+    public DBCollection getCollection() {
+        DBCollection col=null;
+        try {
+            MongoClient mongo = new MongoClient("localhost", 27017);
+            DB db = mongo.getDB("test");
+            col = db.getCollection("student");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return col;
+    }
+
     public static void main(String[] args) throws UnknownHostException {
 
-        Student user = createStudent();
+        Student user = createUser();
         DBObject doc = createDBObject(user);
 
-        MongoClient mongo = new MongoClient("localhost", 27017);
-        DB db = mongo.getDB("test");
 
-        DBCollection col = db.getCollection("student");
 
         //create user
-        WriteResult result = col.insert(doc);
-        System.out.println(result.getUpsertedId());
-        System.out.println(result.getN());
-        System.out.println(result.isUpdateOfExisting());
-        System.out.println(result.getLastConcern());
+//        WriteResult result = col.insert(doc);
+//        System.out.println(result.getUpsertedId());
+//        System.out.println(result.getN());
+//        System.out.println(result.isUpdateOfExisting());
+//        System.out.println(result.getLastConcern());
 
-        //read example
-//        DBObject query = BasicDBObjectBuilder.start().add("_id", user.getId()).get();
-//        DBCursor cursor = col.find(query);
-        DBCursor cursor = col.find();
 
-        while(cursor.hasNext()){
-            System.out.println(cursor.next());
-        }
 
         //update example
 //        user.setName("Pankaj Kumar");
@@ -54,7 +54,7 @@ public class DatabaseSequence {
 //        System.out.println(result.getLastConcern());
 
         //close resources
-        mongo.close();
+        //mongo.close();
     }
 
     private static DBObject createDBObject(Student student) {
@@ -68,11 +68,45 @@ public class DatabaseSequence {
         return docBuilder.get();
     }
 
-    private static Student createStudent() {
+    private static Student createUser() {
         Student student = new Student(7, "Susmita", "30", "West Bengal","BCA");
         return student;
     }
 
+
+    //read example
+//        DBObject query = BasicDBObjectBuilder.start().add("_id", user.getId()).get();
+//        DBCursor cursor = col.find(query);
+    public List<Student> getStudents() {
+        DBCursor cursor = getCollection().find();
+        List<Student> students = new ArrayList<Student>();
+        while (cursor.hasNext()) {
+            System.out.println(cursor.next());
+            Student student=new Student();
+            student.setId((int)(cursor.next().get("id")));
+            student.setName((String) cursor.next().get("Name"));
+            student.setAge((String) cursor.next().get("age"));
+            student.setAddress((String) cursor.next().get("address"));
+            student.setCourse((String) cursor.next().get("course"));
+            students.add(student);
+            System.out.println("students list---"+students);
+        }
+
+
+        return students;
+    }
+
+    public void createStudent() {
+        Student user = createUser();
+        DBObject doc = createDBObject(user);
+
+        WriteResult result = getCollection().insert(doc);
+        System.out.println(result.getUpsertedId());
+        System.out.println(result.getN());
+        System.out.println(result.isUpdateOfExisting());
+        System.out.println(result.getLastConcern());
+
+    }
 
 
 }

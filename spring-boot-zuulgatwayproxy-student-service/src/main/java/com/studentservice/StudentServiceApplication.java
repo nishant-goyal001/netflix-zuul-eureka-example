@@ -3,6 +3,7 @@ package com.studentservice;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import com.model.*;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,11 +20,13 @@ public class StudentServiceApplication {
 
 	@RequestMapping(value = "/getStudentDetails/")
 	public List getStudentDetails() {
-		Student st1=new Student(1, "hitesh", "24", "Delhi","Btech");
-		Student st2=new Student(2, "harshit", "20", "Pune","Btech");
-		Student st3=new Student(3, "preeti", "19", "Mathura","Mtech");
-		List<Student> list= Arrays.asList(st1,st2,st3);
-        return list;
+//		Student st1=new Student(1, "hitesh", "24", "Delhi","Btech");
+//		Student st2=new Student(2, "harshit", "20", "Pune","Btech");
+//		Student st3=new Student(3, "preeti", "19", "Mathura","Mtech");
+//		List<Student> list= Arrays.asList(st1,st2,st3);
+
+		DatabaseSequence ds=new DatabaseSequence();
+        return ds.getStudents();
 		//return new Student(id, "1", "24", "Delhi","Btech");
 	}
 
