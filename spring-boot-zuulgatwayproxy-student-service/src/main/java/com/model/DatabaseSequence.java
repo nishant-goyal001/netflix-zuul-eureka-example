@@ -136,6 +136,7 @@ public class DatabaseSequence {
     }
 
     public void deleteStudent(int id) {
+        //checking color working in terminal for git
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("id", id);
         getCollection().remove(whereQuery);
