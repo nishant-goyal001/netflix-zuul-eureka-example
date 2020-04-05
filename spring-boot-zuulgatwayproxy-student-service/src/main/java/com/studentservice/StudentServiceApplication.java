@@ -55,6 +55,12 @@ public class StudentServiceApplication {
 		ds.updateStudent(student);
 	}
 
+	@GetMapping(value = "/getStudentDetails/id")
+	public List getStudentDetails(@RequestParam int ageStart, @RequestParam int ageEnd) {
+		DatabaseSequence ds=new DatabaseSequence();
+		return ds.getStudentBetweenAges(ageStart,ageEnd);
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(StudentServiceApplication.class, args);
 	}

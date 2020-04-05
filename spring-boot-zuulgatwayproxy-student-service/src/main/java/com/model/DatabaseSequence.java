@@ -164,6 +164,28 @@ public class DatabaseSequence {
         getCollection().update(searchQuery, newDocument);
     }
 
+    public List<Student> getStudentBetweenAges(int ageStart,int ageEnd) {
+        System.out.println("ageStart--"+ageStart);
+        System.out.println("ageEnd--"+ageEnd);
+        BasicDBObject getQuery = new BasicDBObject();
+        getQuery.put("age", new BasicDBObject("$gt", ageStart).append("$lt", ageEnd));
+        DBCursor cursor = getCollection().find(getQuery);
+        List<Student> students = new ArrayList<Student>();
+        while (cursor.hasNext()) {
+            Student student=new Student();
+            System.out.println(cursor.curr());
+            double id= (double) cursor.next().get("id");
+            student.setId((int)id);
+            student.setName((String) cursor.curr().get("name"));
+            String age=cursor.curr().get("age").toString();
+            student.setAge(age);
+            student.setAddress((String) cursor.curr().get("address"));
+            student.setCourse((String) cursor.curr().get("course"));
+            students.add(student);
+        }
+        return students;
+    }
+
     public void createStudent() {
         Student user = createUser();
         DBObject doc = createDBObject(user);
