@@ -135,6 +135,26 @@ public class DatabaseSequence {
         return student;
     }
 
+    public void deleteStudent(int id) {
+        BasicDBObject whereQuery = new BasicDBObject();
+        whereQuery.put("id", id);
+        getCollection().remove(whereQuery);
+
+//        Student student=new Student();
+//        while(cursor.hasNext()) {
+//            //System.out.println("Next cursor-----"+cursor.next());
+//            double studentId= (double) cursor.next().get("id");
+//            student.setId((int)studentId);
+//            student.setName((String) cursor.curr().get("name"));
+//            String age=cursor.curr().get("age").toString();
+//            student.setAge(age);
+//            student.setAddress((String) cursor.curr().get("address"));
+//            student.setCourse((String) cursor.curr().get("course"));
+//        }
+//        System.out.println("student-----"+student.toString());
+//        return student;
+    }
+
     public void createStudent() {
         Student user = createUser();
         DBObject doc = createDBObject(user);

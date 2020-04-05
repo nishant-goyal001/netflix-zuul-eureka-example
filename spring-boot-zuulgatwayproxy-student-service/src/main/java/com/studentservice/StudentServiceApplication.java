@@ -7,10 +7,7 @@ import com.model.*;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @RestController
@@ -42,6 +39,13 @@ public class StudentServiceApplication {
 //		return new Student(1, name, "24", "Delhi","Btech");
 		DatabaseSequence ds=new DatabaseSequence();
 		return ds.getStudent(name);
+	}
+
+	@DeleteMapping (value = "/deleteStudentDetails/id/{id}")
+	public void deleteStudentDetails(@PathVariable(name = "id") int id) {
+//		return new Student(id, "nishant", "24", "Delhi","Btech");
+		DatabaseSequence ds=new DatabaseSequence();
+		ds.deleteStudent(id);
 	}
 
 	public static void main(String[] args) {
