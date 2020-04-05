@@ -48,6 +48,13 @@ public class StudentServiceApplication {
 		ds.deleteStudent(id);
 	}
 
+	@PutMapping (value = "/updateStudentDetails/")
+	public void updateStudentDetails(@RequestBody Student student) {
+		System.out.println("student in updateStudentDetails---"+student.toString());
+		DatabaseSequence ds=new DatabaseSequence();
+		ds.updateStudent(student);
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(StudentServiceApplication.class, args);
 	}

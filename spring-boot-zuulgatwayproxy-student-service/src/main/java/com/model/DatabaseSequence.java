@@ -156,6 +156,14 @@ public class DatabaseSequence {
 //        return student;
     }
 
+    public void updateStudent(Student student) {
+        BasicDBObject newDocument = new BasicDBObject();
+        newDocument.append("id", student.getId()).append("name", student.getName()).append("age", student.getAge())
+                .append("address",student.getAddress()).append("course",student.getCourse());
+        BasicDBObject searchQuery = new BasicDBObject().append("id", student.getId());
+        getCollection().update(searchQuery, newDocument);
+    }
+
     public void createStudent() {
         Student user = createUser();
         DBObject doc = createDBObject(user);
