@@ -1,4 +1,4 @@
-package com.DAL;
+package com.dal;
 import java.math.BigInteger;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.query.Update;
 
 public class StudentServiceDAL2 {
 
-    public static List<Student> getStudents(int pageSize, int pageNum) {
+    public List<Student> getStudents(int pageSize, int pageNum) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(MongoDBConfig.class);
         ctx.refresh();
@@ -29,7 +29,6 @@ public class StudentServiceDAL2 {
 
         List<Student> list = mongoTemplate.find(query, Student.class, "student2");
 //        List<Student> list = mongoTemplate.findAll(Student.class, "student2");
-        list.forEach(std -> System.out.println(std.getName() + " - " + std.getAge() + " - " + std.getStudentId()));
 
         ctx.registerShutdownHook();
         ctx.close();
@@ -46,7 +45,6 @@ public class StudentServiceDAL2 {
         query.addCriteria(Criteria.where("studentId").is(studentId));
         List<Student> list = mongoTemplate.find(query, Student.class, "student2");
 //        List<Student> list = mongoTemplate.findAll(Student.class, "student");
-        list.forEach(std -> System.out.println(std.getName() + " - " + std.getAge() ));
 
         ctx.registerShutdownHook();
         ctx.close();
@@ -62,7 +60,6 @@ public class StudentServiceDAL2 {
         Query query = new Query();
         query.addCriteria(Criteria.where("name").is(name));
         List<Student> list = mongoTemplate.find(query, Student.class, "student2");
-        list.forEach(std -> System.out.println(std.getName() + " - " + std.getAge() ));
 
         ctx.registerShutdownHook();
         ctx.close();
@@ -109,7 +106,6 @@ public class StudentServiceDAL2 {
         Query query = new Query();
         query.addCriteria(Criteria.where("age").gt(ageStart).andOperator(Criteria.where("age").lt(ageEnd)));
         List<Student> list = mongoTemplate.find(query, Student.class, "student2");
-        list.forEach(std -> System.out.println(std.getName() + " - " + std.getAge() ));
 
         ctx.registerShutdownHook();
         ctx.close();

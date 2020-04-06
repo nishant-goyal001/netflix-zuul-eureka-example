@@ -1,4 +1,4 @@
-package com.DAL;
+package com.dal;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -13,7 +13,7 @@ import com.mongodb.ServerAddress;
 import java.net.UnknownHostException;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "com.DAL")
+@EnableMongoRepositories(basePackages = "com.dal")
 public class MongoDBConfig {
     public String getDatabaseName() {
         return "test";

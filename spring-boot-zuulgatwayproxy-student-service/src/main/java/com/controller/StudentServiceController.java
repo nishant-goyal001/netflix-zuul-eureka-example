@@ -1,13 +1,13 @@
 package com.controller;
 
 //import com.DAL.StudentServiceDAL;
-import com.Service.StudentService;
+
 import com.model.Student;
+import com.service.StudentService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -25,7 +25,6 @@ public class StudentServiceController {
 
 	@GetMapping(value = "/{id}")
 	public List<Student> getStudentDetails(@PathVariable(name = "id") int studentId) {
-		System.out.println("id----"+studentId);
 		StudentService ss=new StudentService();
 		return ss.getStudentService(studentId);
 	}
@@ -44,14 +43,12 @@ public class StudentServiceController {
 
 	@PutMapping (value = "/")
 	public void updateStudentDetails(@RequestBody Student student) {
-		System.out.println("student in updateStudentDetails---"+student.toString());
 		StudentService ss=new StudentService();
 		ss.updateStudentService(student);
 	}
 
 	@GetMapping(value = "/age")    //Need to ask its mapping
 	public List getStudentDetails(@RequestParam int ageStart, @RequestParam int ageEnd) {
-		System.out.println("ageStart----"+ageStart);
 		StudentService ss=new StudentService();
 		return ss.getStudentBetweenAgesService(ageStart,ageEnd);
 	}

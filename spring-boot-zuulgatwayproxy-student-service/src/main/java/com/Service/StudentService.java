@@ -1,7 +1,7 @@
-package com.Service;
+package com.service;
 
 //import com.DAL.StudentServiceDAL;
-import com.DAL.StudentServiceDAL2;
+import com.dal.StudentServiceDAL2;
 import com.model.Student;
 
 import java.math.BigInteger;
