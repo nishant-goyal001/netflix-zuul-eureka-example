@@ -1,13 +1,19 @@
 package com.model;
 
+import org.springframework.data.annotation.Id;
+
+import java.math.BigInteger;
+
 public class Student {
-        int id;
+        BigInteger id;
+        @Id
+        int studentId;
         String name;
         String age;
         String address;
         String course;
 
-        public Student(int id,String name, String age, String address, String course) {
+        public Student(BigInteger id,String name, String age, String address, String course) {
             super();
             this.id=id;
             this.name = name;
@@ -20,7 +26,7 @@ public class Student {
 
         }
 
-        public int getId() {
+        public BigInteger getId() {
             return id;
         }
 
@@ -41,7 +47,7 @@ public class Student {
         }
 
 
-        public void setId(int id) {
+        public void setId(BigInteger id) {
             this.id = id;
         }
 
@@ -61,10 +67,19 @@ public class Student {
             this.course = course;
         }
 
+        public int getStudentId() {
+            return studentId;
+        }
+
+        public void setStudentId(int studentId) {
+            this.studentId = studentId;
+        }
+
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
+                ", studentId=" + studentId +
                 ", name='" + name + '\'' +
                 ", age='" + age + '\'' +
                 ", address='" + address + '\'' +

@@ -1,12 +1,13 @@
 package com.controller;
 
-import com.DAL.StudentServiceDAL;
+//import com.DAL.StudentServiceDAL;
 import com.Service.StudentService;
 import com.model.Student;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -16,28 +17,29 @@ import java.util.List;
 @RequestMapping(value = "/student")
 public class StudentServiceController {
 
-	@RequestMapping(value = "/")
-	public List getStudentDetails() {
+	@GetMapping(value = "/page")
+	public List getStudentDetailsByPageSize(@RequestParam int pageSize,@RequestParam int pageNum) {
 		StudentService dss=new StudentService();
-        return dss.getStudentsService();
+        return dss.getStudentsService(pageSize, pageNum);
 	}
 
 	@GetMapping(value = "/{id}")
-	public Student getStudentDetails(@PathVariable(name = "id") int id) {
+	public List<Student> getStudentDetails(@PathVariable(name = "id") int studentId) {
+		System.out.println("id----"+studentId);
 		StudentService ss=new StudentService();
-		return ss.getStudentService(id);
+		return ss.getStudentService(studentId);
 	}
 
 	@GetMapping
-	public Student getStudentDetails(@RequestParam String name) {
+	public List<Student> getStudentDetails(@RequestParam String name) {
 		StudentService ss=new StudentService();
 		return ss.getStudentService(name);
 	}
 
 	@DeleteMapping (value = "/{id}")
-	public void deleteStudentDetails(@PathVariable(name = "id") int id) {
+	public void deleteStudentDetails(@PathVariable(name = "id") int studentId) {
 		StudentService ss=new StudentService();
-		ss.deleteStudentService(id);
+		ss.deleteStudentService(studentId);
 	}
 
 	@PutMapping (value = "/")
@@ -47,8 +49,9 @@ public class StudentServiceController {
 		ss.updateStudentService(student);
 	}
 
-	@GetMapping(value = "/id")
+	@GetMapping(value = "/age")    //Need to ask its mapping
 	public List getStudentDetails(@RequestParam int ageStart, @RequestParam int ageEnd) {
+		System.out.println("ageStart----"+ageStart);
 		StudentService ss=new StudentService();
 		return ss.getStudentBetweenAgesService(ageStart,ageEnd);
 	}
