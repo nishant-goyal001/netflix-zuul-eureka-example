@@ -15,7 +15,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 public class StudentServiceApplication {
 
-	@RequestMapping(value = "/getStudentDetails/")
+	@RequestMapping(value = "/Students/")
 	public List getStudentDetails() {
 //		Student st1=new Student(1, "hitesh", "24", "Delhi","Btech");
 //		Student st2=new Student(2, "harshit", "20", "Pune","Btech");
@@ -27,35 +27,35 @@ public class StudentServiceApplication {
 		//return new Student(id, "1", "24", "Delhi","Btech");
 	}
 
-	@GetMapping(value = "/getStudentDetails/id/{id}")
+	@GetMapping(value = "/Students/id/{id}")
 	public Student getStudentDetails(@PathVariable(name = "id") int id) {
 //		return new Student(id, "nishant", "24", "Delhi","Btech");
 		DatabaseSequence ds=new DatabaseSequence();
 		return ds.getStudent(id);
 	}
 
-	@GetMapping(value = "/getStudentDetails/name/{name}")
+	@GetMapping(value = "/Students/name/{name}")
 	public Student getStudentDetails(@PathVariable(name = "name") String name) {
 //		return new Student(1, name, "24", "Delhi","Btech");
 		DatabaseSequence ds=new DatabaseSequence();
 		return ds.getStudent(name);
 	}
 
-	@DeleteMapping (value = "/deleteStudentDetails/id/{id}")
+	@DeleteMapping (value = "/Students/id/{id}")
 	public void deleteStudentDetails(@PathVariable(name = "id") int id) {
 //		return new Student(id, "nishant", "24", "Delhi","Btech");
 		DatabaseSequence ds=new DatabaseSequence();
 		ds.deleteStudent(id);
 	}
 
-	@PutMapping (value = "/updateStudentDetails/")
+	@PutMapping (value = "/Students/")
 	public void updateStudentDetails(@RequestBody Student student) {
 		System.out.println("student in updateStudentDetails---"+student.toString());
 		DatabaseSequence ds=new DatabaseSequence();
 		ds.updateStudent(student);
 	}
 
-	@GetMapping(value = "/getStudentDetails/id")
+	@GetMapping(value = "/Students/id")
 	public List getStudentDetails(@RequestParam int ageStart, @RequestParam int ageEnd) {
 		DatabaseSequence ds=new DatabaseSequence();
 		return ds.getStudentBetweenAges(ageStart,ageEnd);
