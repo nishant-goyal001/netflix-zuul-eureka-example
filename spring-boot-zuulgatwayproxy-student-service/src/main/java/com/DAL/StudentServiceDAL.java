@@ -1,13 +1,12 @@
-package com.model;
+package com.DAL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
+import com.model.Student;
 import com.mongodb.*;
-import com.studentservice.Student;
 
-public class DatabaseSequence {
+public class StudentServiceDAL {
 
     public DBCollection getCollection() {
         DBCollection col=null;
@@ -19,42 +18,6 @@ public class DatabaseSequence {
             e.printStackTrace();
         }
         return col;
-    }
-
-    public static void main(String[] args) throws UnknownHostException {
-
-        Student user = createUser();
-        DBObject doc = createDBObject(user);
-
-
-
-        //create user
-//        WriteResult result = col.insert(doc);
-//        System.out.println(result.getUpsertedId());
-//        System.out.println(result.getN());
-//        System.out.println(result.isUpdateOfExisting());
-//        System.out.println(result.getLastConcern());
-
-
-
-        //update example
-//        user.setName("Pankaj Kumar");
-//        doc = createDBObject(user);
-//        result = col.update(query, doc);
-//        System.out.println(result.getUpsertedId());
-//        System.out.println(result.getN());
-//        System.out.println(result.isUpdateOfExisting());
-//        System.out.println(result.getLastConcern());
-//
-//        //delete example
-//        result = col.remove(query);
-//        System.out.println(result.getUpsertedId());
-//        System.out.println(result.getN());
-//        System.out.println(result.isUpdateOfExisting());
-//        System.out.println(result.getLastConcern());
-
-        //close resources
-        //mongo.close();
     }
 
     private static DBObject createDBObject(Student student) {
@@ -140,20 +103,6 @@ public class DatabaseSequence {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("id", id);
         getCollection().remove(whereQuery);
-
-//        Student student=new Student();
-//        while(cursor.hasNext()) {
-//            //System.out.println("Next cursor-----"+cursor.next());
-//            double studentId= (double) cursor.next().get("id");
-//            student.setId((int)studentId);
-//            student.setName((String) cursor.curr().get("name"));
-//            String age=cursor.curr().get("age").toString();
-//            student.setAge(age);
-//            student.setAddress((String) cursor.curr().get("address"));
-//            student.setCourse((String) cursor.curr().get("course"));
-//        }
-//        System.out.println("student-----"+student.toString());
-//        return student;
     }
 
     public void updateStudent(Student student) {
