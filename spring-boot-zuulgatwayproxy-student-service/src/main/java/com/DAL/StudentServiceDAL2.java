@@ -14,6 +14,19 @@ import org.springframework.data.mongodb.core.query.Update;
 
 public class StudentServiceDAL2 {
 
+    public void insertStudents(Student student) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(MongoDBConfig.class);
+        ctx.refresh();
+        MongoTemplate mongoTemplate = ctx.getBean(MongoTemplate.class);
+
+
+        mongoTemplate.insert(student, "student");
+
+        ctx.registerShutdownHook();
+        ctx.close();
+    }
+
     public List<Student> getStudents(int pageSize, int pageNum) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(MongoDBConfig.class);
@@ -21,29 +34,13 @@ public class StudentServiceDAL2 {
         MongoTemplate mongoTemplate = ctx.getBean(MongoTemplate.class);
 
         Query query = new Query();
-//        query.addCriteria(Criteria.where("age").is(24));
+////        query.addCriteria(Criteria.where("age").is(24));
         if (pageSize > 0) {
             query.skip((pageNum - 1 ) * pageSize);
             query.limit(pageSize);
         }
 
-        List<Student> list = mongoTemplate.find(query, Student.class, "student2");
-//        List<Student> list = mongoTemplate.findAll(Student.class, "student2");
-
-        ctx.registerShutdownHook();
-        ctx.close();
-        return list;
-    }
-
-    public List<Student> getStudent(int studentId) {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(MongoDBConfig.class);
-        ctx.refresh();
-        MongoTemplate mongoTemplate = ctx.getBean(MongoTemplate.class);
-
-        Query query = new Query();
-        query.addCriteria(Criteria.where("studentId").is(studentId));
-        List<Student> list = mongoTemplate.find(query, Student.class, "student2");
+        List<Student> list = mongoTemplate.find(query, Student.class, "student");
 //        List<Student> list = mongoTemplate.findAll(Student.class, "student");
 
         ctx.registerShutdownHook();
@@ -51,7 +48,23 @@ public class StudentServiceDAL2 {
         return list;
     }
 
-    public List<Student> getStudent(String name) {
+    public List<Student> getStudentById(String studentId) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(MongoDBConfig.class);
+        ctx.refresh();
+        MongoTemplate mongoTemplate = ctx.getBean(MongoTemplate.class);
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("studentId").is(studentId));
+        List<Student> list = mongoTemplate.find(query, Student.class, "student");
+//        List<Student> list = mongoTemplate.findAll(Student.class, "student");
+
+        ctx.registerShutdownHook();
+        ctx.close();
+        return list;
+    }
+
+    public List<Student> getStudentByName(String name) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(MongoDBConfig.class);
         ctx.refresh();
@@ -59,7 +72,7 @@ public class StudentServiceDAL2 {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("name").is(name));
-        List<Student> list = mongoTemplate.find(query, Student.class, "student2");
+        List<Student> list = mongoTemplate.find(query, Student.class, "student");
 
         ctx.registerShutdownHook();
         ctx.close();
@@ -110,6 +123,23 @@ public class StudentServiceDAL2 {
         ctx.registerShutdownHook();
         ctx.close();
         return list;
+    }
+
+    public List getStudentBookDetails(String studentId) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(MongoDBConfig.class);
+        ctx.refresh();
+        MongoTemplate mongoTemplate = ctx.getBean(MongoTemplate.class);
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("studentId").is(studentId));
+        List<Student> list = mongoTemplate.find(query, Student.class, "student");
+//        List<Student> list = mongoTemplate.findAll(Student.class, "student");
+        Student std=list.get(0);
+        List booksList=std.getBooks();
+        ctx.registerShutdownHook();
+        ctx.close();
+        return booksList;
     }
 
 
